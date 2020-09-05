@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>naxon-redis-tool-component</artifactId>
+    <version>${naxon.redis.tool.component.version}</version>
 
 
 </project>

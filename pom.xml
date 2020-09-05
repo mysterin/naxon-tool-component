@@ -12,9 +12,15 @@
         <module>naxon-http-tool-component</module>
         <module>naxon-json-tool-component</module>
         <module>naxon-redis-tool-component</module>
+        <module>naxon-common-tool-component</module>
     </modules>
     <properties>
-        <com.alibaba.fastjson.version>1.2.73</com.alibaba.fastjson.version>
+        <naxon.http.tool.component.version>1.0.0-SNAPSHOT</naxon.http.tool.component.version>
+        <naxon.json.tool.component.version>1.0.0-SNAPSHOT</naxon.json.tool.component.version>
+        <naxon.redis.tool.component.version>1.0.0-SNAPSHOT</naxon.redis.tool.component.version>
+        <naxon.common.tool.component.version>1.0.0-SNAPSHOT</naxon.common.tool.component.version>
+        <fastjson.version>1.2.73</fastjson.version>
+        <commons.lang3.version>3.11</commons.lang3.version>
     </properties>
 
     <dependencyManagement>
@@ -22,10 +28,26 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>${com.alibaba.fastjson.version}</version>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
