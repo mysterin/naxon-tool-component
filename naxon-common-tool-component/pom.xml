@@ -9,8 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>naxon-json-tool-component</artifactId>
-    <version>${naxon.json.tool.component.version}</version>
+    <artifactId>naxon-common-tool-component</artifactId>
+    <version>${naxon.common.tool.component.version}</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
