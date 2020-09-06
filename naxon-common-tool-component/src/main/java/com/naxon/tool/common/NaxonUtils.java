@@ -8,12 +8,12 @@ public class NaxonUtils {
 
     public static Boolean isEmpty(Object obj) {
         if (obj == null) {
-            return false;
+            return true;
         }
         if (obj instanceof String) {
             return StringUtils.isEmpty((String) obj);
         }
-        return true;
+        return false;
     }
 
     public static Boolean isNotEmpty(Object obj) {
