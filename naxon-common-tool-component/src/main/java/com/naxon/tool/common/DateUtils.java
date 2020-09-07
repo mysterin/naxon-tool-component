@@ -12,8 +12,6 @@ import java.util.Map;
  */
 public class DateUtils {
 
-    public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
     private static Map<String, DateTimeFormatter> dateTimeFormatterMap = new HashMap<>();
 
     public static LocalDateTime parse(String text, String pattern) {
