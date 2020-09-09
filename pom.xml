@@ -24,6 +24,7 @@
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
         <lombok.version>1.18.12</lombok.version>
         <logback.classic.version>1.2.3</logback.classic.version>
+        <guava.version>29.0-jre</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -48,6 +49,12 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.classic.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>

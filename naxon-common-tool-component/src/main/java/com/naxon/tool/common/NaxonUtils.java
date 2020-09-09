@@ -1,5 +1,9 @@
 package com.naxon.tool.common;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -48,6 +52,16 @@ public class NaxonUtils {
 
         long random = ThreadLocalRandom.current().nextLong(start.longValue(), end.longValue());
         return StringUtils.getString(random);
+    }
+
+    public static Map<String, String> urlParams(String params) {
+        Map<String, String> map = Splitter.on("&").withKeyValueSeparator("=").split(params);
+        return map;
+    }
+
+    public static String urlParams(Map<String, Object> map) {
+        String params = Joiner.on("&").withKeyValueSeparator("=").join(map);
+        return params;
     }
 
 }
