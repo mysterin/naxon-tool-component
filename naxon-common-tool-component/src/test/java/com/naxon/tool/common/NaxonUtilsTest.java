@@ -1,13 +1,18 @@
 package com.naxon.tool.common;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Slf4j
 class NaxonUtilsTest {
 
     public static Stream<Arguments> isEmptyData() {
@@ -45,4 +50,27 @@ class NaxonUtilsTest {
     void isNotEmpty(Object input, Boolean result) {
         assertEquals(result, NaxonUtils.isNotEmpty(input));
     }
+
+    @Test
+    void randomNumber() {
+        String s = NaxonUtils.randomNumber();
+        log.debug(s);
+        assertEquals(6, s.length());
+
+        String s1 = NaxonUtils.randomNumber(1);
+        log.debug(s1);
+        assertTrue(Integer.valueOf(s1) > 0 && Integer.valueOf(s1) < 10);
+    }
+
+    @Test
+    void urlParams() {
+        String text = "userId=1&name=xx";
+        Map<String, String> map = NaxonUtils.urlParams(text);
+        assertEquals("1", map.get("userId"));
+        assertEquals("xx", map.get("name"));
+
+        String s = NaxonUtils.urlParams(map);
+        assertEquals(text, s);
+    }
+
 }

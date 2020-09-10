@@ -47,8 +47,8 @@ public class NaxonUtils {
             throw new IllegalArgumentException("期待参数取值：1-18，实际取值：" + count);
         }
 
-        Double start = Math.pow(10, count);
-        Double end = Math.pow(10, count + 1);
+        Double start = Math.pow(10, count-1);
+        Double end = Math.pow(10, count);
 
         long random = ThreadLocalRandom.current().nextLong(start.longValue(), end.longValue());
         return StringUtils.getString(random);
@@ -59,7 +59,7 @@ public class NaxonUtils {
         return map;
     }
 
-    public static String urlParams(Map<String, Object> map) {
+    public static String urlParams(Map<String, String> map) {
         String params = Joiner.on("&").withKeyValueSeparator("=").join(map);
         return params;
     }
