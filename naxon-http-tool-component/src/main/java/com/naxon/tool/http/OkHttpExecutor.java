@@ -29,13 +29,16 @@ public class OkHttpExecutor {
     }
 
     /**
-     * 同步 post 请求
+     * 同步 post 请求，Content-Type=applicatio/json
      * @param url
-     * @param map
+     * @param params
      * @return
      */
-    public String syncPost(String url, Map<String, String> map) {
-        return null;
+    public String syncPost(String url, Map<String, String> params) throws IOException {
+        Request request = RequestBuilder.buildJson(url, params);
+        Response response = syncExecute(request);
+        String body = response.body().string();
+        return body;
     }
 
     /**
