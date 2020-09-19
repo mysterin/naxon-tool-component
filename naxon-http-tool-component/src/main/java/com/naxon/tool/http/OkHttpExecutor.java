@@ -3,6 +3,7 @@ package com.naxon.tool.http;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * okhttp 执行器
@@ -25,6 +26,16 @@ public class OkHttpExecutor {
         Response response = syncExecute(request);
         String body = response.body().string();
         return body;
+    }
+
+    /**
+     * 同步 post 请求
+     * @param url
+     * @param map
+     * @return
+     */
+    public String syncPost(String url, Map<String, String> map) {
+        return null;
     }
 
     /**
