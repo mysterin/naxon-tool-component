@@ -26,7 +26,7 @@ public class OkHttpClientFactory {
         this.httpConfig = httpConfig;
     }
 
-    public HttpConfig defaultConfig() {
+    private HttpConfig defaultConfig() {
         HttpConfig httpConfig = new HttpConfig();
         httpConfig.setConnectTimeout(connectTimeout);
         httpConfig.setReadTimeout(readTimeout);
