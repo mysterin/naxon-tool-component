@@ -1,5 +1,7 @@
 package com.naxon.tool.http;
 
+import com.alibaba.fastjson.JSONObject;
+import com.naxon.tool.common.JsonUtils;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -29,6 +31,18 @@ public class OkHttpExecutor {
     }
 
     /**
+     * 返回 json
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    public JSONObject syncGetJson(String url) throws IOException {
+        String res = syncGet(url);
+        JSONObject json = JsonUtils.parseJson(res);
+        return json;
+    }
+
+    /**
      * 同步 post 请求，Content-Type=applicatio/json
      * @param url
      * @param params
@@ -39,6 +53,19 @@ public class OkHttpExecutor {
         Response response = syncExecute(request);
         String body = response.body().string();
         return body;
+    }
+
+    /**
+     * 返回 json
+     * @param url
+     * @param params
+     * @return
+     * @throws IOException
+     */
+    public JSONObject syncPostJson(String url, Map<String, String> params) throws IOException {
+        String res = syncPost(url, params);
+        JSONObject json = JsonUtils.parseJson(res);
+        return json;
     }
 
     /**
