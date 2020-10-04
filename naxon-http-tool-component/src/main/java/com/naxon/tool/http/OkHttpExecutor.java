@@ -17,6 +17,9 @@ public class OkHttpExecutor {
         this.okHttpClient = okHttpClient;
     }
 
+    /**
+     * 注释 httpGet
+     */
     public String httpGet(String url) throws IOException {
         return syncGet(url);
     }
