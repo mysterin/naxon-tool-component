@@ -11,6 +11,10 @@ import java.util.Map;
 public class OkHttpExecutor {
     private OkHttpClient okHttpClient;
 
+    public OkHttpExecutor(OkHttpClientFactory okHttpClientFactory) {
+        this.okHttpClient = okHttpClientFactory.getClient();
+    }
+
     public OkHttpExecutor(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient;
     }

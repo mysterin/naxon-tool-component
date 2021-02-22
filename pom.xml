@@ -13,6 +13,7 @@
         <module>naxon-json-tool-component</module>
         <module>naxon-redis-tool-component</module>
         <module>naxon-common-tool-component</module>
+        <module>naxon-wechat-tool-component</module>
     </modules>
     <properties>
         <naxon.http.tool.component.version>1.0.0-SNAPSHOT</naxon.http.tool.component.version>
@@ -21,11 +22,12 @@
         <naxon.common.tool.component.version>1.0.0-SNAPSHOT</naxon.common.tool.component.version>
         <fastjson.version>1.2.73</fastjson.version>
         <commons.lang3.version>3.11</commons.lang3.version>
-        <junit.jupiter.version>5.6.2</junit.jupiter.version>
+        <junit.version>4.12</junit.version>
         <lombok.version>1.18.12</lombok.version>
         <logback.classic.version>1.2.3</logback.classic.version>
         <guava.version>29.0-jre</guava.version>
         <okhttp.version>3.8.1</okhttp.version>
+        <commons.codec.version>1.14</commons.codec.version>
     </properties>
 
     <dependencyManagement>
@@ -60,11 +62,16 @@
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp.version}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec.version}</version>
+            </dependency>
 
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>${junit.jupiter.version}</version>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -80,8 +87,8 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 
