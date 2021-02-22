@@ -20,6 +20,7 @@
         <naxon.json.tool.component.version>1.0.0-SNAPSHOT</naxon.json.tool.component.version>
         <naxon.redis.tool.component.version>1.0.0-SNAPSHOT</naxon.redis.tool.component.version>
         <naxon.common.tool.component.version>1.0.0-SNAPSHOT</naxon.common.tool.component.version>
+        <naxon.wechat.tool.component.version>1.0.0-SNAPSHOT</naxon.wechat.tool.component.version>
         <fastjson.version>1.2.73</fastjson.version>
         <commons.lang3.version>3.11</commons.lang3.version>
         <junit.version>4.12</junit.version>
