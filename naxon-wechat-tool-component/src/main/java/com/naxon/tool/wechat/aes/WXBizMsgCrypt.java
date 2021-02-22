@@ -286,4 +286,19 @@ public class WXBizMsgCrypt {
 		return result;
 	}
 
+	/**
+	 * 接入服务器时签名校验
+	 * @param token
+	 * @param msgSignature
+	 * @param timeStamp
+	 * @param nonce
+	 * @param echoStr
+	 * @return
+	 * @throws AesException
+	 */
+	public static Boolean checkSignature(String token, String msgSignature, String timeStamp, String nonce, String echoStr) throws AesException {
+		String signature = SHA1.getSHA1(token, timeStamp, nonce, echoStr);
+		return signature.equals(msgSignature);
+	}
+
 }
