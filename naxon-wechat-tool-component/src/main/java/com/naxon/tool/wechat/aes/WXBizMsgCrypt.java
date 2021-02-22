@@ -292,12 +292,11 @@ public class WXBizMsgCrypt {
 	 * @param msgSignature
 	 * @param timeStamp
 	 * @param nonce
-	 * @param echoStr
 	 * @return
 	 * @throws AesException
 	 */
-	public static Boolean checkSignature(String token, String msgSignature, String timeStamp, String nonce, String echoStr) throws AesException {
-		String signature = SHA1.getSHA1(token, timeStamp, nonce, echoStr);
+	public static Boolean checkSignature(String token, String msgSignature, String timeStamp, String nonce) throws AesException {
+		String signature = SHA1.getSHA1(token, timeStamp, nonce);
 		return signature.equals(msgSignature);
 	}
 
