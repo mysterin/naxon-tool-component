@@ -2,7 +2,7 @@ package com.naxon.tool.wechat.aes;
 
 import java.util.ArrayList;
 
-class ByteGroup {
+public class ByteGroup {
 	ArrayList<Byte> byteContainer = new ArrayList<Byte>();
 
 	public byte[] toBytes() {
