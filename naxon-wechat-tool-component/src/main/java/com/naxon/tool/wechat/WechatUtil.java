@@ -1,6 +1,7 @@
 package com.naxon.tool.wechat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.naxon.tool.common.DateUtil;
 import com.naxon.tool.common.JsonUtil;
 import com.naxon.tool.wechat.aes.AesException;
 import com.naxon.tool.wechat.aes.SHA1;
@@ -68,8 +69,9 @@ public class WechatUtil {
                 "  <Content><![CDATA[{3}]]></Content>\n" +
                 "</xml>";
 
-//        String msg = MessageFormat.format(template, toUser, fromUser, )
-        return null;
+        String timestamp = DateUtil.getTimestampStr();
+        String msg = MessageFormat.format(template, toUser, fromUser, timestamp, content);
+        return msg;
     }
 
 }
