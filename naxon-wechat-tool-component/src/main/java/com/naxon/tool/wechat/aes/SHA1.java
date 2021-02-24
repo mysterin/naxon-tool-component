@@ -59,6 +59,14 @@ public class SHA1 {
 		}
 	}
 
+	/**
+	 * 接入服务器时加密
+	 * @param token
+	 * @param timestamp
+	 * @param nonce
+	 * @return
+	 * @throws AesException
+	 */
 	public static String getSHA1(String token, String timestamp, String nonce) throws AesException
 	{
 		try {
@@ -66,7 +74,7 @@ public class SHA1 {
 			StringBuffer sb = new StringBuffer();
 			// 字符串排序
 			Arrays.sort(array);
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 3; i++) {
 				sb.append(array[i]);
 			}
 			String str = sb.toString();
