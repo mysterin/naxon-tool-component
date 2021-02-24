@@ -74,4 +74,26 @@ public class WechatUtil {
         return msg;
     }
 
+    /**
+     * 回复图片消息
+     * @param toUser
+     * @param fromUser
+     * @param mediaId
+     * @return
+     */
+    public static String replyImage(String toUser, String fromUser, String mediaId) {
+        String template = "<xml>\n" +
+                "  <ToUserName><![CDATA[{0}]]></ToUserName>\n" +
+                "  <FromUserName><![CDATA[{1}]]></FromUserName>\n" +
+                "  <CreateTime>{2}</CreateTime>\n" +
+                "  <MsgType><![CDATA[image]]></MsgType>\n" +
+                "  <Image>\n" +
+                "    <MediaId><![CDATA[{3}]]></MediaId>\n" +
+                "  </Image>\n" +
+                "</xml>";
+        String timestamp = DateUtil.getTimestampStr();
+        String msg = MessageFormat.format(template, toUser, fromUser, timestamp, mediaId);
+        return msg;
+    }
+
 }
