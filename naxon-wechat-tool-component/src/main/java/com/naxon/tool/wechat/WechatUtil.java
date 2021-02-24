@@ -1,10 +1,16 @@
 package com.naxon.tool.wechat;
 
+import com.alibaba.fastjson.JSONObject;
+import com.naxon.tool.common.JsonUtil;
 import com.naxon.tool.wechat.aes.AesException;
 import com.naxon.tool.wechat.aes.SHA1;
-import jdk.nashorn.internal.ir.ReturnNode;
+import com.naxon.tool.wechat.model.WechatMsgModel;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
-import java.util.Map;
+import java.io.StringReader;
 
 /**
  * @author linxiaobin
@@ -30,8 +36,19 @@ public class WechatUtil {
      * 解析微信消息
      * @return
      */
-    public static Map<String, String> parseXmlMsg() {
-        return null;
+    public static WechatMsgModel parseXmlMsg(String xmlMsg) throws DocumentException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(new StringReader(xmlMsg));
+        Element root = document.getRootElement();
+        JSONObject json = new JSONObject();
+        for (Object obj : root.elements()) {
+            Element element = (Element) obj;
+            String name = element.getName();
+            String text = element.getText();
+            json.put(name, text);
+        }
+        WechatMsgModel wechatMsgModel = JsonUtil.parseJson(json.toJSONString(), WechatMsgModel.class);
+        return wechatMsgModel;
     }
 
 }

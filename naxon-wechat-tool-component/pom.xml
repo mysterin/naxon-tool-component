@@ -19,8 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
+            <groupId>com.naxon</groupId>
+            <artifactId>naxon-common-tool-component</artifactId>
+            <version>${naxon.common.tool.component.version}</version>
         </dependency>
     </dependencies>
 </project>

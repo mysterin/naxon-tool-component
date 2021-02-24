@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 日期工具类
  */
-public class DateUtils {
+public class DateUtil {
 
     private static Map<String, DateTimeFormatter> dateTimeFormatterMap = new HashMap<>();
 

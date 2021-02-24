@@ -1,6 +1,6 @@
 package com.naxon.tool.http;
 
-import com.naxon.tool.common.JsonUtils;
+import com.naxon.tool.common.JsonUtil;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
@@ -31,7 +31,7 @@ public class RequestBuilder {
      * @return
      */
     public static Request buildJson(String url, Map<String, String> params) {
-        String body = JsonUtils.toJsonString(params);
+        String body = JsonUtil.toJsonString(params);
         RequestBody requestBody = RequestBody.create(MediaType.APPLICATION_JSON, body);
         Request request = new Request.Builder()
                 .url(url)
@@ -48,7 +48,7 @@ public class RequestBuilder {
      * @return
      */
     public static Request buildJson(String url, Map<String, String> headers, Map<String, Object> params) {
-        String body = JsonUtils.toJsonString(params);
+        String body = JsonUtil.toJsonString(params);
         RequestBody requestBody = RequestBody.create(MediaType.APPLICATION_JSON, body);
         Request.Builder builder = new Request.Builder();
         for (Map.Entry<String, String> header : headers.entrySet()) {

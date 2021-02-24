@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * json 工具类
  */
-public class JsonUtils {
+public class JsonUtil {
 
     public static JSONObject parseJson(String text) {
         JSONObject jsonObject = parseJson(text, JSONObject.class);
