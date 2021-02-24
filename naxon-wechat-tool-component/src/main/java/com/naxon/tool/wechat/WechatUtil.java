@@ -11,6 +11,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import java.io.StringReader;
+import java.text.MessageFormat;
 
 /**
  * @author linxiaobin
@@ -49,6 +50,26 @@ public class WechatUtil {
         }
         WechatMsgModel wechatMsgModel = JsonUtil.parseJson(json.toJSONString(), WechatMsgModel.class);
         return wechatMsgModel;
+    }
+
+    /**
+     * 回复文本消息
+     * @param toUser
+     * @param fromUser
+     * @param content
+     * @return
+     */
+    public static String replyText(String toUser, String fromUser, String content) {
+        String template = "<xml>\n" +
+                "  <ToUserName><![CDATA[{0}]]></ToUserName>\n" +
+                "  <FromUserName><![CDATA[{1}]]></FromUserName>\n" +
+                "  <CreateTime>{2}</CreateTime>\n" +
+                "  <MsgType><![CDATA[text]]></MsgType>\n" +
+                "  <Content><![CDATA[{3}]]></Content>\n" +
+                "</xml>";
+
+//        String msg = MessageFormat.format(template, toUser, fromUser, )
+        return null;
     }
 
 }

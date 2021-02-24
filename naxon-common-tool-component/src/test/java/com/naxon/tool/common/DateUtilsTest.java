@@ -4,6 +4,7 @@ import com.naxon.tool.common.constant.DatePatternConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -14,17 +15,17 @@ import java.util.Date;
  * @createTime 2020-09-07 18:39:23
  */
 @Slf4j
-class DateUtilsTest {
+public class DateUtilsTest {
 
     @Test
-    void parse() {
+    public void parse() {
         String text = "2020-09-07 18:42:39";
         LocalDateTime localDateTime = DateUtil.parse(text, DatePatternConstant.DATETIME_FORMAT);
         log.debug(localDateTime.toString());
     }
 
     @Test
-    void format() {
+    public void format() {
         LocalDateTime localDateTime = LocalDateTime.now();
         String format = DateUtil.format(localDateTime, DatePatternConstant.DATETIME_FORMAT);
         log.debug(format);
@@ -33,25 +34,25 @@ class DateUtilsTest {
     }
 
     @Test
-    void getNow() {
+    public void getNow() {
         LocalDateTime now = DateUtil.getNow();
         log.debug(now.toString());
     }
 
     @Test
-    void getYesterday() {
+    public void getYesterday() {
         LocalDateTime yesterday = DateUtil.getYesterday();
         log.debug(yesterday.toString());
     }
 
     @Test
-    void getTomorrow() {
+    public void getTomorrow() {
         LocalDateTime tomorrow = DateUtil.getTomorrow();
         log.debug(tomorrow.toString());
     }
 
     @Test
-    void compareDateTime() {
+    public void compareDateTime() {
         LocalDateTime yesterday = DateUtil.getYesterday();
         LocalDateTime tomorrow = DateUtil.getTomorrow();
         Integer result = DateUtil.compareDateTime(yesterday, tomorrow);
@@ -65,20 +66,28 @@ class DateUtilsTest {
     }
 
     @Test
-    void covertLocalDateTime() {
+    public void covertLocalDateTime() {
         Date date = new Date();
         LocalDateTime localDateTime = DateUtil.covertLocalDateTime(date);
         log.debug(localDateTime.toString());
     }
 
     @Test
-    void covertDate() {
+    public void covertDate() {
         LocalDateTime now = DateUtil.getNow();
         Date date = DateUtil.covertDate(now);
         log.debug(date.toString());
     }
 
     @Test
-    void getDateTimeFormatter() {
+    public void getDateTimeFormatter() {
+    }
+
+    @Test
+    public void getNowSecond() {
+        String msg = "aa{0}bb";
+        String nowSecond = DateUtil.getTimestampStr();
+        String format = MessageFormat.format(msg, nowSecond);
+        System.out.println(format);
     }
 }

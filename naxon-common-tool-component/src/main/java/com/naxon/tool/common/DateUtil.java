@@ -2,6 +2,7 @@ package com.naxon.tool.common;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,6 +30,17 @@ public class DateUtil {
     public static LocalDateTime getNow() {
         LocalDateTime now = LocalDateTime.now();
         return now;
+    }
+
+    public static long getTimestamp() {
+        LocalDateTime now = getNow();
+        long timestamp = now.toEpochSecond(ZoneOffset.ofHours(8));
+        return timestamp;
+    }
+
+    public static String getTimestampStr() {
+        long timestamp = getTimestamp();
+        return String.valueOf(timestamp);
     }
 
     public static LocalDateTime getYesterday() {
