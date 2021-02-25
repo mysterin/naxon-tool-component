@@ -90,4 +90,16 @@ public class DateUtil {
         return dateTimeFormatter;
     }
 
+    /**
+     * 两个时间相差秒数
+     * @param t1
+     * @param t2
+     * @return
+     */
+    public static Long diffSecond(LocalDateTime t1, LocalDateTime t2) {
+        long ts1 = t1.toEpochSecond(ZoneOffset.ofHours(8));
+        long ts2 = t2.toEpochSecond(ZoneOffset.ofHours(8));
+        return ts1 - ts2;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.naxon.tool.common.DateUtil;
 import com.naxon.tool.common.JsonUtil;
 import com.naxon.tool.wechat.aes.AesException;
 import com.naxon.tool.wechat.aes.SHA1;
+import com.naxon.tool.wechat.aes.WXBizMsgCrypt;
 import com.naxon.tool.wechat.model.WechatMsgModel;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -20,6 +21,9 @@ import java.text.MessageFormat;
  * @date 2021/2/23 10:33
  */
 public class WechatUtil {
+
+    private static String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
+
     /**
      * 接入服务器时签名校验
      * @param token
@@ -32,6 +36,28 @@ public class WechatUtil {
     public static Boolean checkSignature(String token, String msgSignature, String timeStamp, String nonce) throws AesException {
         String signature = SHA1.getSHA1(token, timeStamp, nonce);
         return signature.equals(msgSignature);
+    }
+
+    /**
+     * 解密微信加密消息
+     * @param appId
+     * @param token
+     * @param aesKey
+     * @param msgSignature
+     * @param timestamp
+     * @param nonce
+     * @param encryptMsg
+     * @return
+     * @throws AesException
+     * @throws DocumentException
+     */
+    public static WechatMsgModel decryptMsg(String appId, String token, String aesKey,
+                                            String msgSignature, String timestamp,
+                                            String nonce, String encryptMsg) throws AesException, DocumentException {
+        WXBizMsgCrypt wxBizMsgCrypt = new WXBizMsgCrypt(token, aesKey, appId);
+        String decryptMsg = wxBizMsgCrypt.decryptMsg(msgSignature, timestamp, nonce, encryptMsg);
+        WechatMsgModel wechatMsgModel = parseXmlMsg(decryptMsg);
+        return wechatMsgModel;
     }
 
     /**
