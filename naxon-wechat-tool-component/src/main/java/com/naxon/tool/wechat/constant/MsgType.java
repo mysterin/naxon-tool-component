@@ -9,29 +9,51 @@ public enum MsgType {
     /**
      * 文本
      */
-    TEXT,
+    TEXT("text"),
     /**
      * 图片
      */
-    IMAGE,
+    IMAGE("image"),
     /**
      * 语音
      */
-    VOICE,
+    VOICE("voice"),
     /**
-     * 视频 */
-    VIDEO,
+     * 视频
+     */
+    VIDEO("video"),
+    /**
+     * 音乐
+     */
+    MUSIC("music"),
+    /**
+     * 图文
+     */
+    NEWS("news"),
     /**
      * 短视频
      */
-    SHORTVIDEO,
+    SHORTVIDEO("shortvideo"),
     /**
      * 地理位置
      */
-    LOCATION,
+    LOCATION("location"),
     /**
      * 链接
      */
-    LINK;
+    LINK("link");
 
+    private String type;
+
+    MsgType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

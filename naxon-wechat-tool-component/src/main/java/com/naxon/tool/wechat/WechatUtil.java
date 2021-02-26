@@ -6,6 +6,9 @@ import com.naxon.tool.common.JsonUtil;
 import com.naxon.tool.wechat.aes.AesException;
 import com.naxon.tool.wechat.aes.SHA1;
 import com.naxon.tool.wechat.aes.WXBizMsgCrypt;
+import com.naxon.tool.wechat.model.Article;
+import com.naxon.tool.wechat.model.Music;
+import com.naxon.tool.wechat.model.Video;
 import com.naxon.tool.wechat.model.WechatMsgModel;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -14,6 +17,7 @@ import org.dom4j.io.SAXReader;
 
 import java.io.StringReader;
 import java.text.MessageFormat;
+import java.util.List;
 
 /**
  * @author linxiaobin
@@ -120,6 +124,111 @@ public class WechatUtil {
         String timestamp = DateUtil.getTimestampStr();
         String msg = MessageFormat.format(template, toUser, fromUser, timestamp, mediaId);
         return msg;
+    }
+
+    /**
+     * 回复语音消息
+     * @param toUser
+     * @param fromUser
+     * @param mediaId
+     * @return
+     */
+    public static String replyVoice(String toUser, String fromUser, String mediaId) {
+        String template = "<xml>\n" +
+                "  <ToUserName><![CDATA[{0}}]]></ToUserName>\n" +
+                "  <FromUserName><![CDATA[{1}}]]></FromUserName>\n" +
+                "  <CreateTime>{2}</CreateTime>\n" +
+                "  <MsgType><![CDATA[voice]]></MsgType>\n" +
+                "  <Voice>\n" +
+                "    <MediaId><![CDATA[{3}]]></MediaId>\n" +
+                "  </Voice>\n" +
+                "</xml>";
+        String timestamp = DateUtil.getTimestampStr();
+        String msg = MessageFormat.format(template, toUser, fromUser, timestamp, mediaId);
+        return msg;
+    }
+
+    /**
+     * 回复视频消息
+     * @param toUser
+     * @param fromUser
+     * @param video
+     * @return
+     */
+    public static String replyVideo(String toUser, String fromUser, Video video) {
+        String template = "<xml>\n" +
+                "  <ToUserName><![CDATA[{0}]]></ToUserName>\n" +
+                "  <FromUserName><![CDATA[{1}]]></FromUserName>\n" +
+                "  <CreateTime>{2}</CreateTime>\n" +
+                "  <MsgType><![CDATA[video]]></MsgType>\n" +
+                "  <Video>\n" +
+                "    <MediaId><![CDATA[{3}]]></MediaId>\n" +
+                "    <Title><![CDATA[{4}]]></Title>\n" +
+                "    <Description><![CDATA[{5}]]></Description>\n" +
+                "  </Video>\n" +
+                "</xml>";
+        String timestamp = DateUtil.getTimestampStr();
+        String msg = MessageFormat.format(template, toUser, fromUser, timestamp, video.getMediaId(), video.getTitle(), video.getDescription());
+        return msg;
+    }
+
+    /**
+     * 回复音乐消息
+     * @param toUser
+     * @param fromUser
+     * @param music
+     * @return
+     */
+    public static String replyMusic(String toUser, String fromUser, Music music) {
+        String template = "<xml>\n" +
+                "  <ToUserName><![CDATA[{0}]]></ToUserName>\n" +
+                "  <FromUserName><![CDATA[{1}]]></FromUserName>\n" +
+                "  <CreateTime>{2}</CreateTime>\n" +
+                "  <MsgType><![CDATA[music]]></MsgType>\n" +
+                "  <Music>\n" +
+                "    <Title><![CDATA[{3}]]></Title>\n" +
+                "    <Description><![CDATA[{4}]]></Description>\n" +
+                "    <MusicUrl><![CDATA[{5}]]></MusicUrl>\n" +
+                "    <HQMusicUrl><![CDATA[{6}]]></HQMusicUrl>\n" +
+                "    <ThumbMediaId><![CDATA[{7}]]></ThumbMediaId>\n" +
+                "  </Music>\n" +
+                "</xml>";
+        String timestamp = DateUtil.getTimestampStr();
+        String msg = MessageFormat.format(template, toUser, fromUser, timestamp, music.getTitle(), music.getDescription(), music.getHqMusicUrl(), music.getThumbMediaId());
+        return msg;
+    }
+
+    /**
+     * 回复图文消息
+     * @param toUser
+     * @param fromUser
+     * @param articles
+     * @return
+     */
+    public static String replayArticles(String toUser, String fromUser, List<Article> articles) {
+        String templateFront = "<xml>\n" +
+                "  <ToUserName><![CDATA[{0}]]></ToUserName>\n" +
+                "  <FromUserName><![CDATA[{1}]]></FromUserName>\n" +
+                "  <CreateTime>{2}</CreateTime>\n" +
+                "  <MsgType><![CDATA[news]]></MsgType>\n" +
+                "  <ArticleCount>{3}</ArticleCount>\n" +
+                "  <Articles>\n";
+        String timestamp = DateUtil.getTimestampStr();
+        int size = articles.size();
+        StringBuilder msg = new StringBuilder(MessageFormat.format(templateFront, toUser, fromUser, timestamp, size));
+
+        String itemTemplate = "<item>\n" +
+                "      <Title><![CDATA[{0}]]></Title>\n" +
+                "      <Description><![CDATA[{1}]]></Description>\n" +
+                "      <PicUrl><![CDATA[{2}]]></PicUrl>\n" +
+                "      <Url><![CDATA[{3}]]></Url>\n" +
+                "    </item>";
+        for (Article article : articles) {
+            String item = MessageFormat.format(itemTemplate, article.getTitle(), article.getDescription(), article.getPicUrl(), article.getUrl());
+            msg.append(item);
+        }
+        msg.append("</Articles>\n" + "</xml>");
+        return msg.toString();
     }
 
 }
