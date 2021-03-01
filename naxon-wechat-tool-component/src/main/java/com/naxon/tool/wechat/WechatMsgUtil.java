@@ -6,10 +6,8 @@ import com.naxon.tool.common.JsonUtil;
 import com.naxon.tool.wechat.aes.AesException;
 import com.naxon.tool.wechat.aes.SHA1;
 import com.naxon.tool.wechat.aes.WXBizMsgCrypt;
-import com.naxon.tool.wechat.model.Article;
-import com.naxon.tool.wechat.model.Music;
-import com.naxon.tool.wechat.model.Video;
-import com.naxon.tool.wechat.model.WechatMsgModel;
+import com.naxon.tool.wechat.constant.MsgType;
+import com.naxon.tool.wechat.model.*;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -21,10 +19,10 @@ import java.util.List;
 
 /**
  * @author linxiaobin
- * @Description
+ * @Description 微信消息工具类
  * @date 2021/2/23 10:33
  */
-public class WechatUtil {
+public class WechatMsgUtil {
 
     private static String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
 
@@ -81,6 +79,22 @@ public class WechatUtil {
         }
         WechatMsgModel wechatMsgModel = JsonUtil.parseJson(json.toJSONString(), WechatMsgModel.class);
         return wechatMsgModel;
+    }
+
+    /**
+     * 构建回复文本
+     * @param wechatMsgModel
+     * @param content
+     * @return
+     */
+    public static WechatReplyMsgModel replyText(WechatMsgModel wechatMsgModel, String content) {
+        WechatReplyMsgModel wechatReplyMsgModel = WechatReplyMsgModel.builder()
+                .fromUserName(wechatMsgModel.getToUserName())
+                .toUserName(wechatMsgModel.getFromUserName())
+                .msgType(MsgType.TEXT)
+                .content(content)
+                .build();
+        return wechatReplyMsgModel;
     }
 
     /**
@@ -230,5 +244,6 @@ public class WechatUtil {
         msg.append("</Articles>\n" + "</xml>");
         return msg.toString();
     }
+
 
 }

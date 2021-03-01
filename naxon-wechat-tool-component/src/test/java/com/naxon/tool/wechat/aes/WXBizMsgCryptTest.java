@@ -1,14 +1,12 @@
 package com.naxon.tool.wechat.aes;
 
-import com.naxon.tool.wechat.WechatUtil;
+import com.naxon.tool.wechat.WechatMsgUtil;
 import org.dom4j.DocumentException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 /**
  * @author linxiaobin
@@ -32,6 +30,6 @@ public class WXBizMsgCryptTest {
                 "</xml>";
         String decryptMsg = wxBizMsgCrypt.decryptMsg(signature, timestamp, nonce, encryptMsg);
         System.out.println(decryptMsg);
-        System.out.println(WechatUtil.parseXmlMsg(decryptMsg));
+        System.out.println(WechatMsgUtil.parseXmlMsg(decryptMsg));
     }
 }

@@ -1,6 +1,6 @@
 package com.naxon.tool.wechat.model;
 
-import com.naxon.tool.wechat.WechatUtil;
+import com.naxon.tool.wechat.WechatMsgUtil;
 import com.naxon.tool.wechat.constant.MsgType;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 @Builder
-public class WechatReplayMsgModel {
+public class WechatReplyMsgModel {
     private String toUserName;
     private String fromUserName;
     private MsgType msgType;
@@ -31,17 +31,17 @@ public class WechatReplayMsgModel {
     public String replyXmlMsg() {
         switch (msgType) {
             case TEXT:
-                return WechatUtil.replyText(toUserName, fromUserName, content);
+                return WechatMsgUtil.replyText(toUserName, fromUserName, content);
             case IMAGE:
-                return WechatUtil.replyImage(toUserName, fromUserName, mediaId);
+                return WechatMsgUtil.replyImage(toUserName, fromUserName, mediaId);
             case VOICE:
-                return WechatUtil.replyVoice(toUserName, fromUserName, mediaId);
+                return WechatMsgUtil.replyVoice(toUserName, fromUserName, mediaId);
             case VIDEO:
-                return WechatUtil.replyVideo(toUserName, fromUserName, video);
+                return WechatMsgUtil.replyVideo(toUserName, fromUserName, video);
             case MUSIC:
-                return WechatUtil.replyMusic(toUserName, fromUserName, music);
+                return WechatMsgUtil.replyMusic(toUserName, fromUserName, music);
             case NEWS:
-                return WechatUtil.replayArticles(toUserName, fromUserName, articles);
+                return WechatMsgUtil.replayArticles(toUserName, fromUserName, articles);
             default:
                 throw new RuntimeException("未知消息类型，msgType=" + msgType);
         }

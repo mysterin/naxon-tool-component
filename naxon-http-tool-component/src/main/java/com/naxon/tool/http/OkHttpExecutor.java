@@ -1,8 +1,11 @@
 package com.naxon.tool.http;
 
 import com.alibaba.fastjson.JSONObject;
-import com.naxon.tool.common.JsonUtils;
-import okhttp3.*;
+import com.naxon.tool.common.JsonUtil;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.util.Map;
@@ -49,7 +52,7 @@ public class OkHttpExecutor {
      */
     public JSONObject syncGetJson(String url) throws IOException {
         String res = syncGet(url);
-        JSONObject json = JsonUtils.parseJson(res);
+        JSONObject json = JsonUtil.parseJson(res);
         return json;
     }
 
@@ -75,7 +78,7 @@ public class OkHttpExecutor {
      */
     public JSONObject syncPostJson(String url, Map<String, String> params) throws IOException {
         String res = syncPost(url, params);
-        JSONObject json = JsonUtils.parseJson(res);
+        JSONObject json = JsonUtil.parseJson(res);
         return json;
     }
 
