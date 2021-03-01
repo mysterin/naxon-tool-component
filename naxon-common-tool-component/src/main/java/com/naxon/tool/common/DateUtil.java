@@ -2,6 +2,7 @@ package com.naxon.tool.common;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * 日期工具类
  */
-public class DateUtils {
+public class DateUtil {
 
     private static Map<String, DateTimeFormatter> dateTimeFormatterMap = new HashMap<>();
 
@@ -29,6 +30,17 @@ public class DateUtils {
     public static LocalDateTime getNow() {
         LocalDateTime now = LocalDateTime.now();
         return now;
+    }
+
+    public static long getTimestamp() {
+        LocalDateTime now = getNow();
+        long timestamp = now.toEpochSecond(ZoneOffset.ofHours(8));
+        return timestamp;
+    }
+
+    public static String getTimestampStr() {
+        long timestamp = getTimestamp();
+        return String.valueOf(timestamp);
     }
 
     public static LocalDateTime getYesterday() {
@@ -76,6 +88,18 @@ public class DateUtils {
             dateTimeFormatterMap.put(pattern, dateTimeFormatter);
         }
         return dateTimeFormatter;
+    }
+
+    /**
+     * 两个时间相差秒数
+     * @param t1
+     * @param t2
+     * @return
+     */
+    public static Long diffSecond(LocalDateTime t1, LocalDateTime t2) {
+        long ts1 = t1.toEpochSecond(ZoneOffset.ofHours(8));
+        long ts2 = t2.toEpochSecond(ZoneOffset.ofHours(8));
+        return ts1 - ts2;
     }
 
 }

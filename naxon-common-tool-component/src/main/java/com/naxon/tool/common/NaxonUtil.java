@@ -10,14 +10,14 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author naxon
  * 通用工具类
  */
-public class NaxonUtils {
+public class NaxonUtil {
 
     public static Boolean isEmpty(Object obj) {
         if (obj == null) {
             return true;
         }
         if (obj instanceof String) {
-            return StringUtils.isEmpty((String) obj);
+            return StringUtil.isEmpty((String) obj);
         }
         return false;
     }
@@ -51,7 +51,7 @@ public class NaxonUtils {
         Double end = Math.pow(10, count);
 
         long random = ThreadLocalRandom.current().nextLong(start.longValue(), end.longValue());
-        return StringUtils.getString(random);
+        return StringUtil.getString(random);
     }
 
     public static Map<String, String> urlParams(String params) {
