@@ -23,5 +23,10 @@
             <artifactId>naxon-common-tool-component</artifactId>
             <version>${naxon.common.tool.component.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.naxon</groupId>
+            <artifactId>naxon-http-tool-component</artifactId>
+            <version>${naxon.http.tool.component.version}</version>
+        </dependency>
     </dependencies>
 </project>

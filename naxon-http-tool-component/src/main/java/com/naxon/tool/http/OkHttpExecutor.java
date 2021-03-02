@@ -14,7 +14,12 @@ import java.util.Map;
  * okhttp 执行器
  */
 public class OkHttpExecutor {
+
     private OkHttpClient okHttpClient;
+
+    public OkHttpExecutor() {
+        this(new OkHttpClientFactory());
+    }
 
     public OkHttpExecutor(OkHttpClientFactory okHttpClientFactory) {
         this.okHttpClient = okHttpClientFactory.getClient();
