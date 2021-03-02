@@ -58,8 +58,7 @@ public class WechatMsgUtil {
                                             String nonce, String encryptMsg) throws AesException, DocumentException {
         WXBizMsgCrypt wxBizMsgCrypt = new WXBizMsgCrypt(token, aesKey, appId);
         String decryptMsg = wxBizMsgCrypt.decryptMsg(msgSignature, timestamp, nonce, encryptMsg);
-        WechatMsgModel wechatMsgModel = parseXmlMsg(decryptMsg);
-        return wechatMsgModel;
+        return parseXmlMsg(decryptMsg);
     }
 
     /**
@@ -88,13 +87,12 @@ public class WechatMsgUtil {
      * @return
      */
     public static WechatReplyMsgModel replyText(WechatMsgModel wechatMsgModel, String content) {
-        WechatReplyMsgModel wechatReplyMsgModel = WechatReplyMsgModel.builder()
+        return WechatReplyMsgModel.builder()
                 .fromUserName(wechatMsgModel.getToUserName())
                 .toUserName(wechatMsgModel.getFromUserName())
                 .msgType(MsgType.TEXT)
                 .content(content)
                 .build();
-        return wechatReplyMsgModel;
     }
 
     /**
@@ -116,6 +114,21 @@ public class WechatMsgUtil {
         String timestamp = DateUtil.getTimestampStr();
         String msg = MessageFormat.format(template, toUser, fromUser, timestamp, content);
         return msg;
+    }
+
+    /**
+     * 构建回复图片
+     * @param wechatMsgModel
+     * @param mediaId
+     * @return
+     */
+    public static WechatReplyMsgModel replyImage(WechatMsgModel wechatMsgModel, String mediaId) {
+        return WechatReplyMsgModel.builder()
+                .fromUserName(wechatMsgModel.getToUserName())
+                .toUserName(wechatMsgModel.getFromUserName())
+                .msgType(MsgType.IMAGE)
+                .mediaId(mediaId)
+                .build();
     }
 
     /**
@@ -141,6 +154,21 @@ public class WechatMsgUtil {
     }
 
     /**
+     * 构建语音回复
+     * @param wechatMsgModel
+     * @param mediaId
+     * @return
+     */
+    public static WechatReplyMsgModel replyVoice(WechatMsgModel wechatMsgModel, String mediaId) {
+        return WechatReplyMsgModel.builder()
+                .fromUserName(wechatMsgModel.getToUserName())
+                .toUserName(wechatMsgModel.getFromUserName())
+                .msgType(MsgType.VOICE)
+                .mediaId(mediaId)
+                .build();
+    }
+
+    /**
      * 回复语音消息
      * @param toUser
      * @param fromUser
@@ -160,6 +188,21 @@ public class WechatMsgUtil {
         String timestamp = DateUtil.getTimestampStr();
         String msg = MessageFormat.format(template, toUser, fromUser, timestamp, mediaId);
         return msg;
+    }
+
+    /**
+     * 构建回复视频
+     * @param wechatMsgModel
+     * @param video
+     * @return
+     */
+    public static WechatReplyMsgModel replyVideo(WechatMsgModel wechatMsgModel, Video video) {
+        return WechatReplyMsgModel.builder()
+                .fromUserName(wechatMsgModel.getToUserName())
+                .toUserName(wechatMsgModel.getFromUserName())
+                .msgType(MsgType.VIDEO)
+                .video(video)
+                .build();
     }
 
     /**
@@ -184,6 +227,21 @@ public class WechatMsgUtil {
         String timestamp = DateUtil.getTimestampStr();
         String msg = MessageFormat.format(template, toUser, fromUser, timestamp, video.getMediaId(), video.getTitle(), video.getDescription());
         return msg;
+    }
+
+    /**
+     * 构建音乐回复
+     * @param wechatMsgModel
+     * @param music
+     * @return
+     */
+    public static WechatReplyMsgModel replyMusic(WechatMsgModel wechatMsgModel, Music music) {
+        return WechatReplyMsgModel.builder()
+                .fromUserName(wechatMsgModel.getToUserName())
+                .toUserName(wechatMsgModel.getFromUserName())
+                .msgType(MsgType.MUSIC)
+                .music(music)
+                .build();
     }
 
     /**
@@ -213,13 +271,28 @@ public class WechatMsgUtil {
     }
 
     /**
+     * 构建图文回复
+     * @param wechatMsgModel
+     * @param articles
+     * @return
+     */
+    public static WechatReplyMsgModel replyArticles(WechatMsgModel wechatMsgModel, List<Article> articles) {
+        return WechatReplyMsgModel.builder()
+                .fromUserName(wechatMsgModel.getToUserName())
+                .toUserName(wechatMsgModel.getFromUserName())
+                .msgType(MsgType.NEWS)
+                .articles(articles)
+                .build();
+    }
+
+    /**
      * 回复图文消息
      * @param toUser
      * @param fromUser
      * @param articles
      * @return
      */
-    public static String replayArticles(String toUser, String fromUser, List<Article> articles) {
+    public static String replyArticles(String toUser, String fromUser, List<Article> articles) {
         String templateFront = "<xml>\n" +
                 "  <ToUserName><![CDATA[{0}]]></ToUserName>\n" +
                 "  <FromUserName><![CDATA[{1}]]></FromUserName>\n" +
@@ -244,6 +317,5 @@ public class WechatMsgUtil {
         msg.append("</Articles>\n" + "</xml>");
         return msg.toString();
     }
-
 
 }

@@ -41,7 +41,7 @@ public class WechatReplyMsgModel {
             case MUSIC:
                 return WechatMsgUtil.replyMusic(toUserName, fromUserName, music);
             case NEWS:
-                return WechatMsgUtil.replayArticles(toUserName, fromUserName, articles);
+                return WechatMsgUtil.replyArticles(toUserName, fromUserName, articles);
             default:
                 throw new RuntimeException("未知消息类型，msgType=" + msgType);
         }
