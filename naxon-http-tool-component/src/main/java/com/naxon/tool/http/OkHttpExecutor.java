@@ -62,7 +62,7 @@ public class OkHttpExecutor {
     }
 
     /**
-     * 同步 post 请求，Content-Type=applicatio/json
+     * 同步 post 请求，Content-Type=application/json
      * @param url
      * @param params
      * @return

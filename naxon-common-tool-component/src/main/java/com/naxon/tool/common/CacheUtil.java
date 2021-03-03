@@ -1,6 +1,7 @@
 package com.naxon.tool.common;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.Iterator;
@@ -14,9 +15,11 @@ import java.util.concurrent.Executors;
  * @Description
  * @date 2021/2/25 11:10
  */
+@Slf4j
 public class CacheUtil {
 
     private static Map<String, Node> map = new ConcurrentHashMap<>();
+    private static final Long INTERNAL = 60000L;
 
     static {
         recycle();
@@ -25,42 +28,47 @@ public class CacheUtil {
     /**
      * 回收过期元素
      */
-    public static void recycle() {
+    private static void recycle() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
-            while (true) {
+            log.info("缓存回收线程启动");
+            boolean start = true;
+            while (start) {
                 Iterator<Map.Entry<String, Node>> iterator = map.entrySet().iterator();
                 while (iterator.hasNext()) {
                     Map.Entry<String, Node> entry = iterator.next();
+                    String key = entry.getKey();
                     Node node = entry.getValue();
                     // 删除已过期元素
                     if (isExpire(node)) {
+                        log.debug("回收缓存，key={}，node={}", key, node);
                         iterator.remove();
                     }
                 }
                 try {
-                    // 每十分钟回收
-                    Thread.sleep(10 * 60000);
+                    // 每分钟回收
+                    Thread.sleep(INTERNAL);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    throw new RuntimeException("缓存回收线程中断");
+                    log.error("缓存回收线程中断", e);
+                    start = false;
                 }
             }
+            log.info("缓存回收线程结束");
         });
     }
 
     /**
      * 设置缓存值
      * @param key
-     * @param object
-     * @param ttl
+     * @param value
+     * @param ttl 生存时间，单位秒
      * @param <T>
      */
-    public static <T> void set(String key, T object, Integer ttl) {
+    public static <T> void set(String key, T value, Integer ttl) {
         if (ttl == null) {
             throw new RuntimeException("ttl 不能为空");
         }
-        Node<T> node = new Node<>(object, ttl);
+        Node<T> node = new Node<>(value, ttl);
         map.put(key, node);
     }
 
@@ -75,7 +83,7 @@ public class CacheUtil {
         if (isExpire(node)) {
             return null;
         }
-        return (T) node.getObject();
+        return (T) node.getValue();
     }
 
     /**
@@ -83,12 +91,12 @@ public class CacheUtil {
      * @param node
      * @return
      */
-    public static Boolean isExpire(Node node) {
+    private static Boolean isExpire(Node node) {
         if (node == null) {
             return true;
         }
-        LocalDateTime createtime = node.getCreatetime();
-        Integer ttl = node.getTtl();
+        LocalDateTime createtime = node.createtime;
+        Integer ttl = node.ttl;
         LocalDateTime now = DateUtil.getNow();
         // 过期元素
         if (DateUtil.diffSecond(now, createtime) > ttl) {
@@ -99,12 +107,12 @@ public class CacheUtil {
 
     @Data
     public static class Node<T> {
-        private T object;
+        private T value;
         private LocalDateTime createtime;
         private Integer ttl;
 
-        public Node(T object, Integer ttl) {
-            this.object = object;
+        public Node(T value, Integer ttl) {
+            this.value = value;
             this.createtime = DateUtil.getNow();
             this.ttl = ttl;
         }
