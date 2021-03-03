@@ -15,7 +15,7 @@ import java.util.Date;
  * @createTime 2020-09-07 18:39:23
  */
 @Slf4j
-public class DateUtilsTest {
+public class DateUtilTest {
 
     @Test
     public void parse() {
